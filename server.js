@@ -41,7 +41,7 @@ function getJSONObjectForMovieRequirement(req) {
     return json;
 }
 
-router.post('/signup', function(req, res) {
+router.post('/signup', (req, res) => {
     if (!req.body.username || !req.body.password) {
         res.json({success: false, msg: 'Please include both username and password to signup.'})
     } else {
@@ -55,7 +55,7 @@ router.post('/signup', function(req, res) {
     }
 });
 
-router.post('/signin', function (req, res) {
+router.post('/signin', (req, res) => {
     var user = db.findOne(req.body.username);
 
     if (!user) {
@@ -73,7 +73,7 @@ router.post('/signin', function (req, res) {
 });
 
 router.route('/testcollection')
-    .delete(authController.isAuthenticated, function(req, res) {
+    .delete(authController.isAuthenticated, (req, res) => {
         console.log(req.body);
         res = res.status(200);
         if (req.get('Content-Type')) {
@@ -83,7 +83,7 @@ router.route('/testcollection')
         res.json(o);
     }
     )
-    .put(authJwtController.isAuthenticated, function(req, res) {
+    .put(authJwtController.isAuthenticated, (req, res) => {
         console.log(req.body);
         res = res.status(200);
         if (req.get('Content-Type')) {
@@ -93,7 +93,7 @@ router.route('/testcollection')
         res.json(o);
     }
     );
-
+    
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
 module.exports = app; // for testing only
